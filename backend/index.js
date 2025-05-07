@@ -10,7 +10,7 @@ app.use(cors())
 mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji15@cluster0.ivefj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>console.log("Database connected successfully"))
 .catch((e)=>console.log("Database connection failed"+e))
 const userdata=[
-    {username:'vidhya@gmail.com',password:'Pass1234%'},
+    {username:'vidhya@gmail.com',password:'Pass1234'},
     {username:'demo@gmail.com',password:'helloWorld@123'},
 ]
 app.post('/edit',function(req,res)
@@ -38,21 +38,31 @@ app.get("/login",function(req,res)
     console.log(UserModel.find({}));
     console.log(req.query);
     console.log(req.query.UserName);
+    var result = false;
     userdata.map((data)=>
     {
-        if(data.username===req.query.UserName&&data.password===req.query.password)
-        {
-            res.send(true)
-        }
-        else
-        {
-            res.send(false)
+        if(data.username===req.query.UserName  && data.password===req.query.password)
+        { 
+            result =true;
+            
         }
     })
+
+    if(result){
+        res.send(true)
+    }
+    else{
+        res.send(false)
+    }
+
 
     
 })
 app.listen("5000", function () {
     console.log("Server Successfully started in Port 5000........");
 
+})
+
+app.get("/",(req,res)=>{
+    res.status(200).json({message:'running'})
 })
