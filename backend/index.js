@@ -7,11 +7,11 @@ const registermodel=require("./models/register")
 const app = express();
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji15@cluster0.ivefj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(()=>console.log("Database connected successfully"))
+mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji@cluster0.6pxhhii.mongodb.net/StudentDatabase?retryWrites=true&w=majority&appName=Cluster0").then(()=>console.log("Database connected successfully"))
 .catch((e)=>console.log("Database connection failed"+e))
 const userdata=[
-    {username:'vidhya@gmail.com',password:'Pass1234'},
-    {username:'demo@gmail.com',password:'helloWorld@123'},
+    {email:'vidhya@gmail.com',password:'Pass1234'},
+    {email:'demo@gmail.com',password:'helloWorld@123'},
 ]
 app.post('/edit',function(req,res)
 {
@@ -25,30 +25,42 @@ app.post('/add',function(req,res)
 })
 app.post('/register',function(req,res)
 {
-registermodel.create(req.body).then(registeruser=>{
-    res.json(registeruser)
-}).catch(err=>
-{
-    res.json(err);
-}
-)
+    console.log(req);
+    //UserModel.insertOne({email:'balaji@gmail.com',password:'Pass1234'})
+// registermodel.create(req.body).then(registeruser=>{
+//     res.json(registeruser)
+// }).catch(err=>
+// {
+//     res.json(err);
+// }
+// )
 })
-app.get("/login",function(req,res)
+app.get("/login",async(req,res)=>
 {
-    console.log(UserModel.find({}));
-    console.log(req.query);
-    console.log(req.query.UserName);
-    var result = false;
-    userdata.map((data)=>
-    {
-        if(data.username===req.query.UserName  && data.password===req.query.password)
-        { 
-            result =true;
-            
-        }
-    })
 
-    if(result){
+    
+
+    // UserModel.insertMany(userdata)
+//    const user =new UserModel(userdata[0])
+//    await user.save()
+//    let ids = user.insertedIds;
+    //  const loginuser = await UserModel.find({email:req.query.UserName});
+    //  res.send(loginuser)
+    // console.log(req.query);
+    // console.log(req.query.UserName);
+    // var result = false;
+    // userdata.map((data)=>
+    // {
+    //     if(data.email===req.query.UserName  && data.password===req.query.password)
+    //     { 
+    //         result =true;
+            
+    //     }
+    // })
+
+    const user =  await UserModel.find({email:req.query.UserName , password:req.query.password})
+
+    if(user.length > 0){
         res.send(true)
     }
     else{

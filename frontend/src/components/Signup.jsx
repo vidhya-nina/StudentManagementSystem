@@ -23,8 +23,14 @@ function SignUp() {
         setPassword(e.target.value);
     }
     function register() {
+
+        let options = {
+            baseURL: "http://localhost:5000",
+            responseType: "application/json"
+        };
         console.log(name + " " + email + " " + password);
-       axios.post("http://localhost:3000/register", { name, email, password }).then(result => {
+        var para = {email : email,password : password };
+       axios.post("/register", {email : email,password : password },options).then(result => {
             console.log("Registered successful");
             navigate('/')
         }).catch(err =>
