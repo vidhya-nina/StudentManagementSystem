@@ -1,10 +1,12 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
+import { AppBar, Button, Container, Icon, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 import AddIcon from '@mui/icons-material/Add';
 import Add from "./Add";
 import { useState } from "react";
+import StudentIcon from "../asset/icon.png";
 function StudentList(props) {
   const navigate = useNavigate();
   const listOfStudents = props.listOfStudents;
@@ -38,46 +40,70 @@ function StudentList(props) {
     setOpenPopUp(true);
   }
   return (
-    <TableContainer sx={{ width: "80%", position: "absolute", left: "10%", top: "10%" }} component={Paper}>
-      <Typography textAlign="center" marginBottom={'20px'} color={'primary'} fontFamily={"sans-serif"} fontWeight={"bold"} fontSize={"34px"}>Students Management System</Typography>
-      <TextField label="Search...." sx={{ width: '40%', margin: '20px' }} />
-      <Button onClick={handleNewRecord} color="primary" variant="contained" sx={{ height: '50px', margin: '20px' }} endIcon={<AddIcon />}>Add</Button>
-      <Table sx={{ minWidth: 800 }} aria-label="simple table">
-        <TableHead sx={{ background: "#2196f3" }}>
-          <TableRow >
-            <TableCell>Reg No</TableCell>
-            <TableCell align="left">Name</TableCell>
-            <TableCell align="left">Age</TableCell>
-            <TableCell align="left">Course</TableCell>
-            <TableCell align="left">Address</TableCell>
-            <TableCell align="left">CGPA</TableCell>
-            <TableCell align="left">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {listOfStudents.map((data) => (
-            <TableRow
-              key={data.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {data.regno}
-              </TableCell>
-              <TableCell align="left">{data.name}</TableCell>
-              <TableCell align="left">{data.age}</TableCell>
-              <TableCell align="left">{data.course}</TableCell>
-              <TableCell align="left">{data.address}</TableCell>
-              <TableCell align="left">{data.CGPA}</TableCell>
-              <TableCell align="left" sx={{ justifyItems: "space-between" }}>
-                <Button variant="contained" color="primary" onClick={() => handleEdit(data.regno)} sx={{ m: 1, hover: "text-black bg-blue-400" }}>Edit</Button>
-                <Button variant="contained" color="error" onClick={() => handleDelete(data.regno)} startIcon={<DeleteIcon />} sx={{ m: 1, hover: "text-black bg-red-400" }}>Delete</Button>
-              </TableCell>
+    <Container maxWidth="xl">
+      <AppBar position="sticky" sx={{ width: '100%' }}>
+        <Container maxWidth="xl" sx={{ display: 'flex' }}>
+          <Container sx={{ display: 'flex',justifyContent:"flex-start" }}>
+          <img src={StudentIcon} width={"50px"}height={"50px"}></img>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/studentlist"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >STUDIX</Typography>
+          </Container>
+        <Button variant="text" color="white" sx={{position:"relative", right:'0%',hover:"color:black"}}>MarkDetails</Button>
+        </Container>
+      </AppBar>
+      <TableContainer sx={{ width: "80%", position: "absolute", left: "10%", top: "15%" }} component={Paper}>
+        <TextField label="Search...." sx={{ width: '40%', margin: '20px' }} />
+        <Button onClick={handleNewRecord} color="primary" variant="contained" sx={{ height: '50px', margin: '20px' }} endIcon={<AddIcon />}>Add</Button>
+        <Table sx={{ minWidth: 800 }} aria-label="simple table">
+          <TableHead sx={{ background: '#2196f3', color:"white" }}>
+            <TableRow >
+              <TableCell>Reg No</TableCell>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Age</TableCell>
+              <TableCell align="left">Course</TableCell>
+              <TableCell align="left">Address</TableCell>
+              <TableCell align="left">CGPA</TableCell>
+              <TableCell align="left">Action</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Add openPopUp={openPopUp} setOpenPopUp={setOpenPopUp} listOfStudents={listOfStudents} setListOfStudents={setListOfStudents}></Add>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {listOfStudents.map((data) => (
+              <TableRow
+                key={data.name}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {data.regno}
+                </TableCell>
+                <TableCell align="left">{data.name}</TableCell>
+                <TableCell align="left">{data.age}</TableCell>
+                <TableCell align="left">{data.course}</TableCell>
+                <TableCell align="left">{data.address}</TableCell>
+                <TableCell align="left">{data.CGPA}</TableCell>
+                <TableCell align="left" sx={{ justifyItems: "space-between" }}>
+                  <Button variant="contained" color="primary" onClick={() => handleEdit(data.regno)} startIcon={<EditIcon/>}sx={{ m: 1, hover: "text-black bg-blue-400" }}>Edit</Button>
+                  <Button variant="contained" color="error" onClick={() => handleDelete(data.regno)} startIcon={<DeleteIcon />} sx={{ m: 1, hover: "text-black bg-red-400" }}>Delete</Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Add openPopUp={openPopUp} setOpenPopUp={setOpenPopUp} listOfStudents={listOfStudents} setListOfStudents={setListOfStudents}></Add>
+      </TableContainer>
+    </Container>
   )
 }
 export default StudentList

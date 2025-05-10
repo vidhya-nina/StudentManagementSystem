@@ -2,8 +2,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, Typography } from '@mui/material';
+import { Alert, Box, Typography } from '@mui/material';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 function LoginPage() {
     const navigate = useNavigate();
     const [Username, setMailId] = useState("");
@@ -18,12 +19,18 @@ function LoginPage() {
         console.log(Username)
         console.log(Password)
         const apicall = axios.get(`http://localhost:5000/login?UserName=${Username}&password=${Password}`)
-        apicall.then( (data)=> {
-            if(data.data===true)
-            {
+        apicall.then((data) => {
+            if (data.data === true) {
+               toast("Login Successfull");
                 navigate("/studentList")
             }
-        })
+        }).catch(err => {
+            console.log("login alert check :" + err);
+            <Alert variant="filled" severity="error">
+                User not registered
+            </Alert>
+        }
+        )
     };
     function register() {
         return (
@@ -49,7 +56,7 @@ function LoginPage() {
                 Student Information System
             </Typography>
             <div>
-                <TextField  required sx={{ m: 2 }} value={Username} onChange={handleUsername} id="outlined-basic" label="Email/Username" variant="outlined" />
+                <TextField required sx={{ m: 2 }} value={Username} onChange={handleUsername} id="outlined-basic" label="Email/Username" variant="outlined" />
             </div>
             <div>
                 <TextField required onChange={handlePassword} value={Password} id="outlined-basic" type='password' label="Password" variant="outlined" />

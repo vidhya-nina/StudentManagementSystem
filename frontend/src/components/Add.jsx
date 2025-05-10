@@ -2,6 +2,7 @@ import { Button, ButtonGroup, Container, Dialog, DialogContent, DialogTitle, Sta
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 function Add(props) {
     const { openPopUp, setOpenPopUp,setListOfStudents} = props;
     const [regno, setRegno] = useState("");
@@ -22,6 +23,7 @@ function Add(props) {
       }
     const handleAdd=()=>
     {
+        axios.post("http://localhost:5000/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA })
         setListOfStudents(listOfStudents=>[...listOfStudents,{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }])
         setClear();
     }
