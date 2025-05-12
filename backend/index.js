@@ -19,10 +19,10 @@ app.post('/edit', function (req, res) {
     console.log(res);
     res.send(true);
 })
-app.post('/add', function (req, res) {
-    console.log(res);
-    res.send(true);
-})
+// app.post('/add', function (req, res) {
+//     console.log(res);
+//     res.send(true);
+// })
 app.post('/register', async function (req, res) {
     console.log("body content :" + req.body.email);
     const user = await UserModel.findOne({ email: req.body.email });
@@ -38,7 +38,7 @@ app.post('/register', async function (req, res) {
         console.log("User already exist");
     }
 })
-app.post("/login", async (req, res) => {
+app.get("/login", async (req, res) => {
     const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
     if (user.length > 0) {
         res.send(true)
@@ -47,12 +47,18 @@ app.post("/login", async (req, res) => {
         res.send(false)
     }
 })
-app.post("/add",async(req,res)=>
-{
-    console.log(req.body.name);
-const insertflag=studentModel.insertOne({regno:req.body.regno,name:req.body.name,age:req.body.age,course:req.body.course,CGPA:req.body.CGPA,address:req.body.address});
-console.log("insert flag:"+insertflag);
-
+app.post("/add", async (req, res) => {
+    const adddata = { regno: req.body.regno, name: req.body.name, age: req.body.age, course: req.body.course, CGPA: req.body.CGPA, address: req.body.address };
+    console.log("Add api");
+    console.log(adddata);
+    const insertflag = await studentModel.insertOne(adddata);
+    console.log(insertflag);
+    if(insertflag>0)
+    {
+        return(true)
+    }else{
+        return(false)
+    }
 })
 app.listen("5000", function () {
     console.log("Server Successfully started in Port 5000........");

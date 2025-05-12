@@ -20,12 +20,16 @@ function LoginPage() {
         console.log(Password)
         const apicall = axios.get(`http://localhost:5000/login?UserName=${Username}&password=${Password}`)
         apicall.then((data) => {
+            console.log("login " + data.data);
             if (data.data === true) {
-               toast("Login Successfull");
+                toast.success("Login Successfull");
                 navigate("/studentList")
+            }else{
+                toast.error("Login failed");
             }
         }).catch(err => {
             console.log("login alert check :" + err);
+            toast.error("User not Registered");
             <Alert variant="filled" severity="error">
                 User not registered
             </Alert>
@@ -63,6 +67,7 @@ function LoginPage() {
             </div>
             <Button sx={{ m: 2 }} variant="contained" onClick={login}>Sign In</Button>
             <Button sx={{ m: 2 }} variant="contained" onClick={register}>Sign Up</Button>
+            <ToastContainer/>
 
 
         </Box>

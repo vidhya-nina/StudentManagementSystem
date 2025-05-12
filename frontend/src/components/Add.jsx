@@ -3,6 +3,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 function Add(props) {
     const { openPopUp, setOpenPopUp,setListOfStudents} = props;
     const [regno, setRegno] = useState("");
@@ -13,6 +14,10 @@ function Add(props) {
       const [CGPA, setCGPA] = useState(""); 
     console.log("Add open popup" + openPopUp);
     const navigate = useNavigate();
+     const delay = async (ms) => {
+        return new Promise((resolve) =>
+            setTimeout(resolve, ms));
+    };
     function setClear() {
         setRegno("");
         setName("");
@@ -23,7 +28,16 @@ function Add(props) {
       }
     const handleAdd=()=>
     {
-        axios.post("http://localhost:5000/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA })
+        axios.post("http://localhost:5000/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }).then(suc=>
+        {
+            toast.success("Record Added Successfully")
+        }
+        ).catch(err=>
+        {
+            toast.error("Record not Added");
+        }
+        )
+        
         setListOfStudents(listOfStudents=>[...listOfStudents,{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }])
         setClear();
     }
@@ -48,10 +62,9 @@ function Add(props) {
                     <Button onClick={handleAdd}>Add</Button>
                     <Button color="error" onClick={() => { setOpenPopUp(false) }}>Cancel</Button>
                 </ButtonGroup>
-
+                <ToastContainer/>
             </DialogContent>
         </Dialog>
     )
-
 }
 export default Add
