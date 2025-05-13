@@ -9,6 +9,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 app.use(express.json());
+const dbtest = "";
 mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji@cluster0.6pxhhii.mongodb.net/StudentDatabase?retryWrites=true&w=majority&appName=Cluster0").then(() => console.log("Database connected successfully"))
     .catch((e) => console.log("Database connection failed" + e))
 const userdata = [
@@ -39,14 +40,14 @@ app.post('/register', async function (req, res) {
     }
 })
 app.get("/login", async (req, res) => {
-    // const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
-    // if (user.length > 0) {
-    //     res.send(true)
-    // }
-    // else {
-    //     res.send(false)
-    // }
-    res.send(true)
+    const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
+    if (user.length > 0) {
+        res.send(user)
+    }
+    else {
+        res.send(user)
+    }
+
 })
 app.post("/add", async (req, res) => {
     const adddata = { regno: req.body.regno, name: req.body.name, age: req.body.age, course: req.body.course, CGPA: req.body.CGPA, address: req.body.address };
@@ -68,7 +69,9 @@ app.listen("5000", function () {
 
 })
 app.get("/test", (req, res) => {
-    res.status(200).json({ message: 'ok' })
+    mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji@cluster0.6pxhhii.mongodb.net/StudentDatabase?retryWrites=true&w=majority&appName=Cluster0").then(() => res.status(200).json({ message: "Database connected "  }))
+    .catch((e) => res.status(200).json({ message: "Database connection failed" + e }))
+    
 })
 
 app.get("/", (req, res) => {
