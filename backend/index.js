@@ -8,9 +8,7 @@ const studentModel = require("./models/studentlist")
 const app = express();
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-// app.use(express.json());
-// app.use(express.static('public'));
-const dbtest = "";
+app.use(express.json());
 mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji@cluster0.6pxhhii.mongodb.net/StudentDatabase?retryWrites=true&w=majority&appName=Cluster0").then(() => console.log("Database connected successfully"))
     .catch((e) => console.log("Database connection failed" + e))
 const userdata = [
@@ -41,7 +39,7 @@ app.post('/register', async function (req, res) {
     }
 })
 app.get("/login", async (req, res) => {
-    const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
+    const user = await UserModel.find({ email: req.query.username, password: req.query.password })
     if (user.length > 0) {
         res.send(user)
     }
