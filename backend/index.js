@@ -8,8 +8,8 @@ const studentModel = require("./models/studentlist")
 const app = express();
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-app.use(express.json());
-app.use(express.static('public'));
+// app.use(express.json());
+// app.use(express.static('public'));
 const dbtest = "";
 mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji@cluster0.6pxhhii.mongodb.net/StudentDatabase?retryWrites=true&w=majority&appName=Cluster0").then(() => console.log("Database connected successfully"))
     .catch((e) => console.log("Database connection failed" + e))
