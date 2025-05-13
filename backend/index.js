@@ -71,7 +71,7 @@ app.listen("5000", function () {
 })
 app.get("/test", (req, res) => {
    //const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
-    res.status(200).json(req)
+    res.send(true)
 })
 
 app.get("/", (req, res) => {
