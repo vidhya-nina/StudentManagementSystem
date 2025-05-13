@@ -68,10 +68,9 @@ app.listen("5000", function () {
     console.log("Server Successfully started in Port 5000........");
 
 })
-app.get("/test", (req, res) => {
-    mongoose.connect("mongodb+srv://vidhyabalajinina:vidhyabalaji@cluster0.6pxhhii.mongodb.net/StudentDatabase?retryWrites=true&w=majority&appName=Cluster0").then(() => res.status(200).json({ message: "Database connected "  }))
-    .catch((e) => res.status(200).json({ message: "Database connection failed" + e }))
-    
+app.get("/test", async (req, res) => {
+   const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
+    res.status(200).json(user)
 })
 
 app.get("/", (req, res) => {
