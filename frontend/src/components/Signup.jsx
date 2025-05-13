@@ -33,7 +33,7 @@ function SignUp() {
             toast.error("Email are empty")
         }
         else {
-            axios.post("https://student-management-system-backend-chi.vercel.app/register", { email: email, password: password }).then(async result => {
+            axios.post("https://student-management-system-be.vercel.app/register", { email: email, password: password }).then(async result => {
                 if (result.data === true) {
                     console.log("Registered successful");
                     toast.success("Registered Successfully")

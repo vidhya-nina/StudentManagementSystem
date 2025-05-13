@@ -28,7 +28,7 @@ function Add(props) {
       }
     const handleAdd=()=>
     {
-        axios.post("https://student-management-system-backend-chi.vercel.app/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }).then(suc=>
+        axios.post("https://student-management-system-be.vercel.app/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }).then(suc=>
         {
             if(suc){
                 toast.success("Record Added Successfully")

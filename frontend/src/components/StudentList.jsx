@@ -19,7 +19,7 @@ function StudentList(props) {
   };
   function handleEdit(editRegNo) {
     console.log(editRegNo);
-    axios.post("https://student-management-system-backend-chi.vercel.app/edit", { editRegNo }).then((res) => {
+    axios.post("https://student-management-system-be.vercel.app/edit", { editRegNo }).then((res) => {
       console.log(res.data);
       if (res.data === true) {
         listOfStudents.map(students => {
