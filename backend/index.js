@@ -69,8 +69,8 @@ app.listen("5000", function () {
 
 })
 app.get("/test", async (req, res) => {
-   const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
-    res.status(200).json(user)
+   //const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
+    res.status(200).json(req)
 })
 
 app.get("/", (req, res) => {
