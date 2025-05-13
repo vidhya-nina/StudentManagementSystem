@@ -66,6 +66,9 @@ app.listen("5000", function () {
     console.log("Server Successfully started in Port 5000........");
 
 })
+app.get("/test", (req, res) => {
+    res.status(200).json({ message: 'ok' })
+})
 
 app.get("/", (req, res) => {
     res.status(200).json({ message: 'running' })
