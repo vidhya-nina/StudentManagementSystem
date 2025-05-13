@@ -68,7 +68,7 @@ app.listen("5000", function () {
     console.log("Server Successfully started in Port 5000........");
 
 })
-app.get("/test", async (req, res) => {
+app.get("/test", (req, res) => {
    //const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
     res.status(200).json(req)
 })
