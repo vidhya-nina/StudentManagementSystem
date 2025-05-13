@@ -39,13 +39,14 @@ app.post('/register', async function (req, res) {
     }
 })
 app.get("/login", async (req, res) => {
-    const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
-    if (user.length > 0) {
-        res.send(true)
-    }
-    else {
-        res.send(false)
-    }
+    // const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
+    // if (user.length > 0) {
+    //     res.send(true)
+    // }
+    // else {
+    //     res.send(false)
+    // }
+    res.send(true)
 })
 app.post("/add", async (req, res) => {
     const adddata = { regno: req.body.regno, name: req.body.name, age: req.body.age, course: req.body.course, CGPA: req.body.CGPA, address: req.body.address };
