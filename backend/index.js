@@ -39,7 +39,7 @@ app.post('/register', async function (req, res) {
     }
 })
 app.get("/login", async (req, res) => {
-    const user = await UserModel.find({ email: req.query.username, password: req.query.password })
+    const user = await UserModel.find({ email: req.query.UserName, password: req.query.password })
     if (user.length > 0) {
         res.send(user)
     }
