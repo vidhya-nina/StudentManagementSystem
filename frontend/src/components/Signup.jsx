@@ -33,15 +33,18 @@ function SignUp() {
             toast.error("Email are empty")
         }
         else {
-            axios.post("http://localhost:5000/register", { email: email, password: password }).then(async result => {
-                if (result) {
+            axios.post("https://student-management-system-backend-chi.vercel.app/register", { email: email, password: password }).then(async result => {
+                if (result.data === true) {
                     console.log("Registered successful");
                     toast.success("Registered Successfully")
                     await delay(2000);
                     navigate('/')
                 }
+                else if (result.data === "User already exist"){
+                    toast.error("User already exist")
+                }
                 else {
-                    toast.error("User already Registration")
+                    toast.error("Registered failed")
                 }
             }).catch(err => {
                 console.log("Registration failed :" + err)

@@ -28,9 +28,14 @@ function Add(props) {
       }
     const handleAdd=()=>
     {
-        axios.post("http://localhost:5000/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }).then(suc=>
+        axios.post("https://student-management-system-backend-chi.vercel.app/add",{ regno: regno, name: name, age: age, course: course, address: address, CGPA: CGPA }).then(suc=>
         {
-            toast.success("Record Added Successfully")
+            if(suc){
+                toast.success("Record Added Successfully")
+            }
+            else{
+                toast.error("Record not Added");
+            }
         }
         ).catch(err=>
         {

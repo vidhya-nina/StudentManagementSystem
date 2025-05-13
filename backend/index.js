@@ -29,13 +29,13 @@ app.post('/register', async function (req, res) {
     console.log("user find :" + user);
     if (user === null) {
         UserModel.insertOne({ email: req.body.email, password: req.body.password }).then(registeruser => {
-            res.json(registeruser)
+            res.send("true")
         }).catch(err => {
-            res.json(err);
+            res.send("false")
         }
         )
     } else {
-        console.log("User already exist");
+        res.send("User already exist")
     }
 })
 app.get("/login", async (req, res) => {
@@ -53,11 +53,13 @@ app.post("/add", async (req, res) => {
     console.log(adddata);
     const insertflag = await studentModel.insertOne(adddata);
     console.log(insertflag);
-    if(insertflag>0)
+    if(insertflag._id != null && insertflag._id != "")
     {
-        return(true)
+        res.send(true)
+        //return(true)
     }else{
-        return(false)
+        res.send(false)
+        //return(false)
     }
 })
 app.listen("5000", function () {
